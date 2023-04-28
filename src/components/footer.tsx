@@ -1,18 +1,25 @@
 import { Icon } from '@iconify/react';
 import { FC } from 'react';
-export const Footer: FC<{running:boolean, setRunning:Function, step:number, alive:number}> = ({running, setRunning, step, alive}) => {
+import { useAppDispatch, useAppSelector } from '../hooks/store';
+import { selectSettings, toggleRunning } from '../service/reducers/settings-slice';
+import { selectGame } from '../service/reducers/game-slice';
+import { countCells } from '../utils/utils';
+export const Footer: FC = () => {
+  const { running } = useAppSelector(selectSettings);
+  const { grid, step } = useAppSelector(selectGame);
+  const dispatch = useAppDispatch();
   return (
     <footer>
       <div className="container">
         <div className="controls">
-          <button className="play-button" onClick={() => setRunning(!running)}>
+          <button className="play-button" onClick={() => dispatch(toggleRunning())}>
             {!running && <Icon icon="fa:play" />}
             {running && <Icon icon="fa:stop" />}
           </button>
         </div>
         <div className="stats">
           <p>Step: {step}</p>
-          <p>Cells alive: {alive}</p>
+          <p>Cells alive: {countCells(grid)}</p>
         </div>
       </div>
     </footer>

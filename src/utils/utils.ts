@@ -1,7 +1,7 @@
-import { TgridSize } from "./types";
+import { TGridSize } from "./types";
 
 //generates a grid of given size with random cells
-export const generateRandomTiles = (size: TgridSize): number[][] => {
+export const generateRandomTiles = (size: TGridSize): number[][] => {
   const rows = [];
   let alive = 0;
   for (let i = 0; i < size.rows; i++) {
@@ -11,7 +11,7 @@ export const generateRandomTiles = (size: TgridSize): number[][] => {
 };
 
 //generates an empty grid of given size
-export const generateEmptyGrid = (size: TgridSize): number[][] => {
+export const generateEmptyGrid = (size: TGridSize): number[][] => {
   const rows = [];
   for (let i = 0; i < size.rows; i++) {
     rows.push(Array.from(Array(size.cols), () => 0));
