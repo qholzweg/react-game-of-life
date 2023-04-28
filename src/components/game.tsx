@@ -5,7 +5,7 @@ import { incrementStep, selectGame, setGrid } from '../service/reducers/game-sli
 import { Grid } from './grid';
 import useInterval from '../utils/useInterval';
 import { operations } from '../utils/constants';
-import { TCoords } from '../utils/types';
+import { TCoords, TSize } from '../utils/types';
 import { getACtiveZone } from '../utils/utils';
 export const Game: FC = () => {
 
@@ -14,40 +14,41 @@ export const Game: FC = () => {
   const { grid } = useAppSelector(selectGame);
 
   const [offset, setOffset] = useState([0, 0]);
+  const [windowSize, setWindowSize] = useState<TSize>({width: window.innerWidth, height:window.innerHeight})
 
-  //create ref to use in interval closure
-  const runningRef = useRef(running);
-  runningRef.current = running;
-
+  
   //get zone of the grid that is currently visible within a viewport
   const containerSize = {
     width: cellSize * gridSize.cols,
     height: cellSize * gridSize.rows
   }
   const viewPort = {
-    width: window.innerWidth,
-    height: window.innerHeight - 100,
+    width: windowSize.width,
+    height: windowSize.height - 100,
   }
   const maxCells: TCoords = {
     x: Math.floor(viewPort.width / cellSize),
     y: Math.floor(viewPort.height / cellSize),
   }
-  const activeGridSize: TCoords = {
+  const visibleGridSize: TCoords = {
     x: maxCells.x < gridSize.cols ? maxCells.x : gridSize.cols,
     y: maxCells.y < gridSize.rows ? maxCells.y : gridSize.rows
   }
   
   const fullCellSize = cellSize + 1;
-  const left = activeGridSize.x * fullCellSize + 1 < viewPort.width ?
-  (viewPort.width - activeGridSize.x * fullCellSize + 1) / 2 :
-    0;
+  const left = visibleGridSize.x * fullCellSize + 1 < viewPort.width ?
+  (viewPort.width - visibleGridSize.x * fullCellSize + 1) / 2 :
+  0;
   const gridOffset: TCoords = {
     x: Math.floor(offset[0] / cellSize),
     y: Math.floor(offset[1] / cellSize)
   }
-  const activeGrid = getACtiveZone(grid, gridOffset.x, activeGridSize.x, gridOffset.y, activeGridSize.y);
-
-
+  const visibleGrid = getACtiveZone(grid, gridOffset.x, visibleGridSize.x, gridOffset.y, visibleGridSize.y);
+  
+  //create ref to use in interval closure
+  const runningRef = useRef(running);
+  runningRef.current = running;
+  
   const runSimulation = useCallback((grid: number[][]) => {
     if (!runningRef.current) {
       return;
@@ -96,10 +97,19 @@ export const Game: FC = () => {
 
   useEffect(() => {
     const onScroll = () => setOffset([window.pageXOffset, window.pageYOffset]);
+    const onResize = () => setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
     window.removeEventListener('scroll', onScroll);
+    window.removeEventListener('resize', onResize);
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize)
     // clean up
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+    }
   }, []);
 
   return (
@@ -118,7 +128,7 @@ export const Game: FC = () => {
           position: 'fixed'
         }}
       >
-        <Grid template={`repeat(${Math.floor(activeGridSize.x)}, ${cellSize}px)`} grid={activeGrid} gridOffset={gridOffset} />
+        <Grid template={`repeat(${Math.floor(visibleGridSize.x)}, ${cellSize}px)`} grid={visibleGrid} gridOffset={gridOffset} />
       </div>
     </section>
   );
