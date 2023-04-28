@@ -11,13 +11,15 @@ export const Game: FC = () => {
 
   const dispatch = useAppDispatch();
   const { gridSize, running, cellSize } = useAppSelector(selectSettings);
-  const {grid} = useAppSelector(selectGame);
+  const { grid } = useAppSelector(selectGame);
 
   const [offset, setOffset] = useState([0, 0]);
 
+  //create ref to use in interval closure
   const runningRef = useRef(running);
   runningRef.current = running;
 
+  //get zone of the grid that is currently visible within a viewport
   const containerSize = {
     width: cellSize * gridSize.cols,
     height: cellSize * gridSize.rows
@@ -34,6 +36,11 @@ export const Game: FC = () => {
     x: maxCells.x < gridSize.cols ? maxCells.x : gridSize.cols,
     y: maxCells.y < gridSize.rows ? maxCells.y : gridSize.rows
   }
+  
+  const fullCellSize = cellSize + 1;
+  const left = activeGridSize.x * fullCellSize + 1 < viewPort.width ?
+  (viewPort.width - activeGridSize.x * fullCellSize + 1) / 2 :
+    0;
   const gridOffset: TCoords = {
     x: Math.floor(offset[0] / cellSize),
     y: Math.floor(offset[1] / cellSize)
@@ -47,11 +54,14 @@ export const Game: FC = () => {
     }
 
     let gridCopy = JSON.parse(JSON.stringify(grid));
+
     for (let i = 0; i < gridSize.rows; i++) {
       for (let j = 0; j < gridSize.cols; j++) {
         let neighbors = 0;
 
         operations.forEach(([x, y]) => {
+
+          //calculate neighbors 
           const newI = i + x < 0 ?
             gridSize.rows - 1 :
             i + x > gridSize.rows - 1 ?
@@ -62,13 +72,12 @@ export const Game: FC = () => {
             j + y > gridSize.cols - 1 ?
               0 : j + y;
 
-
-
           if (newI >= 0 && newI < gridSize.rows && newJ >= 0 && newJ < gridSize.cols) {
             neighbors += grid[newI][newJ];
           }
         });
 
+        //apply rules for next generation
         if (neighbors < 2 || neighbors > 3) {
           gridCopy[i][j] = 0;
         } else if (grid[i][j] === 0 && neighbors === 3) {
@@ -95,22 +104,22 @@ export const Game: FC = () => {
 
   return (
     <section
+      style={{
+        width: containerSize.width,
+        height: containerSize.height
+      }}
+    >
+      <div className="game"
         style={{
-          width: containerSize.width,
-          height: containerSize.height
+          width: viewPort.width + cellSize * 2,
+          height: viewPort.height + cellSize * 2,
+          top: '100px',
+          left: left,
+          position: 'fixed'
         }}
       >
-        <div className="game"
-          style={{
-            width: viewPort.width + cellSize * 2,
-            height: viewPort.height + cellSize * 2,
-            top: '100px',
-            left: 0,
-            position: 'fixed'
-          }}
-        >
-          <Grid template={`repeat(${Math.floor(activeGridSize.x)}, ${cellSize}px)`} grid={activeGrid} gridOffset={gridOffset} />
-        </div>
-      </section>
+        <Grid template={`repeat(${Math.floor(activeGridSize.x)}, ${cellSize}px)`} grid={activeGrid} gridOffset={gridOffset} />
+      </div>
+    </section>
   );
 }

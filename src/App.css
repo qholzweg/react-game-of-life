@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
-button, input[type="submit"], input[type="reset"] {
+button {
 	background: none;
 	color: inherit;
 	border: none;
@@ -8,10 +8,23 @@ button, input[type="submit"], input[type="reset"] {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+  color: #666;
 }
-
-.App {
-  text-align: center;
+button:hover {
+  color: #000;
+}
+button:hover .iconify  {
+  color: #000;
+}
+button:disabled {
+  color: #B9B9B9;
+  cursor: default;
+}
+button:disabled .iconify {
+  color: #B9B9B9;
+}
+.iconify {
+  color: #666;
 }
 
 .App-header {
@@ -31,11 +44,6 @@ button, input[type="submit"], input[type="reset"] {
   font-size: 1.2rem;
   max-width: 776px;
   margin: 0 auto;
-
-}
-
-.iconify {
-  color: #666;
 }
 
 .game-grid {
@@ -76,16 +84,20 @@ footer .container {
   width: 776px;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   position: relative;
 }
-
+footer .actions button .iconify {
+  margin-right: 3px;
+}
+footer .actions button {
+  display: block;
+  margin-bottom: 5px;
+}
 footer .stats {
-  position: absolute;
-  right: 0;
-  text-align: right;
+  text-align: left;
 }
 footer .stats p {
   margin-bottom: 5px;
@@ -96,5 +108,4 @@ button.play-button {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  padding-left: 2px;
 }
