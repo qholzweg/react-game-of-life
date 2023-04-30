@@ -10,7 +10,7 @@ import { getACtiveZone } from '../utils/utils';
 export const Game: FC = () => {
 
   const dispatch = useAppDispatch();
-  const { gridSize, running, cellSize } = useAppSelector(selectSettings);
+  const { gridSize, running, cellSize, speed } = useAppSelector(selectSettings);
   const { grid } = useAppSelector(selectGame);
 
   const [offset, setOffset] = useState([0, 0]);
@@ -93,7 +93,7 @@ export const Game: FC = () => {
 
   useInterval(() => {
     runSimulation(grid);
-  }, 150);
+  }, speed);
 
   useEffect(() => {
     const onScroll = () => setOffset([window.pageXOffset, window.pageYOffset]);
