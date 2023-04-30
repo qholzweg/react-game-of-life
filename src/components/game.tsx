@@ -89,7 +89,7 @@ export const Game: FC = () => {
 
     dispatch(incrementStep());
     dispatch(setGrid(gridCopy));
-  }, [grid]);
+  }, [dispatch, gridSize]);
 
   useInterval(() => {
     runSimulation(grid);

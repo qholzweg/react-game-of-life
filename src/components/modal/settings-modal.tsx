@@ -26,7 +26,7 @@ export default function SettingsModal() {
       }));
       dispatch(resetStep());
       dispatch(toggleSettings());
-    }, [form]
+    }, [form, dispatch]
   )
 
   return (
@@ -43,13 +43,13 @@ export default function SettingsModal() {
           </fieldset>
           <fieldset className="radio-toolbar">
             <legend>Game speed</legend>
-            <input name="speed" id="slow" value={Speed.slow} checked={form.speed == Speed.slow} type="radio" onChange={handleChange} />
+            <input name="speed" id="slow" value={Speed.slow} checked={form.speed === Speed.slow.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="slow">Slow</label>
 
-            <input name="speed" id="normal" value={Speed.normal} checked={form.speed == Speed.normal} type="radio" onChange={handleChange} />
+            <input name="speed" id="normal" value={Speed.normal} checked={form.speed === Speed.normal.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="normal">Normal</label>
 
-            <input name="speed" id="fast" value={Speed.fast} checked={form.speed == Speed.fast} type="radio" onChange={handleChange} />
+            <input name="speed" id="fast" value={Speed.fast} checked={form.speed === Speed.fast.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="fast">Fast</label>
 
           </fieldset>

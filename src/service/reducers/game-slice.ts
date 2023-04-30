@@ -6,7 +6,6 @@ import { INIT_GRID_SIZE } from "../../utils/constants";
 
 type TGameState = {
   grid: TGrid;
-  // offset: [number, number]
   step: number;
   cellsAlive: number;
 }

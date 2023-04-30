@@ -1,46 +1,25 @@
-# Getting Started with Create React App
+# Игра "Жизнь" на React
+[English readme](#react-game-of-life)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React Game of Life](https://github.com/qholzweg/react-game-of-life/blob/master/react-game-of-life.png?raw=true)
 
-## Available Scripts
+Реализация игры "Жизнь" Джона Конвея на реакте. Размер поля, на котором можно размещать клетки настраивается, при этом само поле бесконечно (крайняя клетка на поле соседствует с первой клеткой и по горизонтали и по вертикали).
 
-In the project directory, you can run:
+Demo: https://qholzweg.github.io/react-game-of-life/index.html
 
-### `npm start`
+##Функционал:
+- можно расставить начальное состояние живых клеток и запустить игру
+- можно расставить случайные клетки на поле
+- можно настроить размер поля и скорость игры. Для отображения поля используется lazy rendering только видимой в браузере области, поэтому даже на поле большого размера игра не будет тормозить
+- отображается статистика живых клеток на данный момент
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#React Game of Life
+Implementation of John Conway's Game of Life in React. The size of the field on which cells can be placed is adjustable, while the field itself is infinite (the last cell on the field is adjacent to the first cell both horizontally and vertically).
 
-### `npm test`
+##Functionality:
+- you can place initial living cells and start the game
+- you can place random cells on the field
+- you can adjust the size of the field and the speed of the game. Only the area visible in the browser is lazy rendered, so even on a large field the game will not slow down
+- displays alive cell count
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

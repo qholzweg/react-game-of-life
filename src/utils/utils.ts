@@ -26,7 +26,7 @@ export const countCells = (grid: TGrid) =>
   )
 
 //get active, i.e. visible right now zone for the grid
-export const getACtiveZone: any = (grid: TGrid, xStart: number, xLength: number, yStart: number, yLength: number) => {
+export const getACtiveZone = (grid: TGrid, xStart: number, xLength: number, yStart: number, yLength: number) => {
   const zone = [];
   for (let i = yStart; i < yLength + yStart; i++) {
     zone.push(grid[i].slice(xStart, xLength + xStart));

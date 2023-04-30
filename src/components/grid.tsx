@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react';
-import { TCoords, TGridSize } from '../utils/types';
+import { TCoords } from '../utils/types';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
-import { selectGame, toggleCell } from '../service/reducers/game-slice';
+import { toggleCell } from '../service/reducers/game-slice';
 import { selectSettings } from '../service/reducers/settings-slice';
 
 export const Grid: FC<{ template: string, grid: number[][], gridOffset: TCoords }> = ({ template, grid, gridOffset }) => {
@@ -21,7 +21,7 @@ export const Grid: FC<{ template: string, grid: number[][], gridOffset: TCoords 
           }
           } />
       ))
-    ), [grid]
+    ), [grid, dispatch, gridOffset, running]
   )
   return (
     <div className='game-grid'
