@@ -119,7 +119,7 @@ export const Game: FC = () => {
         height: containerSize.height
       }}
     >
-      <div className="game"
+      <div className={`game${running ? ' running' : ''}`}
         style={{
           width: viewPort.width + cellSize * 2,
           height: viewPort.height + cellSize * 2,
