@@ -13,7 +13,7 @@ export default function SettingsModal() {
   const { gridSize, speed } = useAppSelector(selectSettings);
 
   //using hook to update the state of the form, initial value from the slice
-  const { form, handleChange } = useForm<TSettingsForm>({ cols: gridSize.cols.toString(), rows: gridSize.rows.toString(), speed: speed });
+  const { form, handleChange } = useForm<TSettingsForm>({ cols: gridSize.cols.toString(), rows: gridSize.rows.toString(), speed: speed.toString() });
 
   //on form submit update settings slice, game's grid & close settings window
   const onSubmit = useCallback(
@@ -43,13 +43,13 @@ export default function SettingsModal() {
           </fieldset>
           <fieldset className="radio-toolbar">
             <legend>Game speed</legend>
-            <input name="speed" id="slow" value={Speed.slow} checked={form.speed === Speed.slow.valueOf()} type="radio" onChange={handleChange} />
+            <input name="speed" id="slow" value={Speed.slow} checked={parseInt(form.speed) === Speed.slow.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="slow">Slow</label>
 
-            <input name="speed" id="normal" value={Speed.normal} checked={form.speed === Speed.normal.valueOf()} type="radio" onChange={handleChange} />
+            <input name="speed" id="normal" value={Speed.normal} checked={parseInt(form.speed) === Speed.normal.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="normal">Normal</label>
 
-            <input name="speed" id="fast" value={Speed.fast} checked={form.speed === Speed.fast.valueOf()} type="radio" onChange={handleChange} />
+            <input name="speed" id="fast" value={Speed.fast} checked={parseInt(form.speed) === Speed.fast.valueOf()} type="radio" onChange={handleChange} />
             <label htmlFor="fast">Fast</label>
 
           </fieldset>

@@ -47,7 +47,7 @@ export const settingsSlice = createSlice({
         cols: parseInt(cols),
         rows: parseInt(rows)
       };
-      state.speed = speed;
+      state.speed = parseInt(speed);
     },
   }
 });

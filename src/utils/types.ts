@@ -18,6 +18,6 @@ export enum Speed {
 export type TSettingsForm = {
   cols: string,
   rows: string, 
-  speed: Speed
+  speed: string
 }
 export type TGrid = number[][];
