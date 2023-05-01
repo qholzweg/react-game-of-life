@@ -39,9 +39,10 @@ export const Game: FC = () => {
   const left = visibleGridSize.x * fullCellSize + 1 < viewPort.width ?
   (viewPort.width - visibleGridSize.x * fullCellSize + 1) / 2 :
   0;
+
   const gridOffset: TCoords = {
-    x: Math.floor(offset[0] / cellSize),
-    y: Math.floor(offset[1] / cellSize)
+    x: Math.floor(offset[0] / cellSize) > 0 ? Math.floor(offset[0] / cellSize) : 0,
+    y: Math.floor(offset[1] / cellSize) > 0 ? Math.floor(offset[1] / cellSize) : 0
   }
   const visibleGrid = getACtiveZone(grid, gridOffset.x, visibleGridSize.x, gridOffset.y, visibleGridSize.y);
   
